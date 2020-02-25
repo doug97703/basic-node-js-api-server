@@ -8,7 +8,7 @@ const mongooseOptions = {
   useCreateIndex: true,
   useUnifiedTopology: true,
 };
-mongoose.connect(process.env.MONGODB_URI, mongooseOptions)
+mongoose.connect(process.env.MONGODB_URL, mongooseOptions)
   .then(connected => console.log('mongoose connected', connected.options));
 
 require('./src/app.js').start(process.env.PORT);
