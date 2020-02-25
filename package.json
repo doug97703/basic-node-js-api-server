@@ -1,0 +1,31 @@
+{
+  "name": "api-server-mongoose-lab09",
+  "version": "1.0.0",
+  "description": "lab09",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "lint": "eslint '**/*.js'",
+    "test-watch": "jest --watchAll --verbose --coverage",
+    "jsdoc": "/home/doug/devstation/401/labs/lab07/node_modules/.bin/jsdoc -c ./docs/config/jsdoc.config.json"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "express": "^4.17.1",
+    "jest": "^24.8.0",
+    "mongodb-memory-server": "^5.1.5",
+    "mongoose": "^5.8.7",
+    "mongoose-schema-jsonschema": "^1.2.1",
+    "morgan": "^1.9.1",
+    "supertest": "^4.0.2",
+    "uuid": "^3.3.2"
+  }
+}
