@@ -35,12 +35,16 @@ users.statics.createFromOauth = function (record) {
 
 users.statics.authenticateBasic = function (auth) {
   let query = { username: auth.username };
+  console.log(query)
+  console.log(auth)
   return this.findOne(query)
     .then(user => user && user.comparePassword(auth.password))
     .catch(error => { throw error; });
 };
 
 users.methods.comparePassword = function (password) {
+  console.log(password)
+  console.log(this.password)
   return bcrypt.compare(password, this.password)
     .then(valid => valid ? this : null);
 };

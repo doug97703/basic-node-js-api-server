@@ -24,9 +24,6 @@ module.exports = async (req, res, next) => {
 
 async function authenticateToken(token) {
   let tokenObject = jwt.verify(token, process.env.SECRET);
-  let now = Date.now();
-  if (now - tokenObject.date >= 3600000) { return Promise.reject('your token has timed out'); }
-  //token lasts for 1 hour before timing out
   let result = await User.findOne({ _id: tokenObject.id });
   if (result) { 
     console.log('TOKEN OBJ: ', tokenObject);

@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const authRouter = express.Router();
+const bcrypt = require('bcrypt')
 
 const path = require('path');
 const indexPath = path.join(__dirname, '../public');
@@ -18,18 +19,12 @@ authRouter.get('/hello', (req, res, next) => {
 });
 
 authRouter.post('/signup', async (req, res, next) => {
+  req.body.password = await bcrypt.hash(req.body.password, 4)
   let user = await new User(req.body);
-  console.log('--------new user -----------');
-  console.log(user);
-  console.log('----------saving------------');
   let saved = await user.save();
-  console.log(saved);
-  console.log('------finding again --------');
-  console.log('... username:  ', saved.username, '.........');
-  // let {id} = saved.id;
+
   User.findOne({username: saved.username})
     .then((user) => {
-      console.log(user);
       req.token = user.generateToken();
       req.user = user;
       res.set('token', req.token);
