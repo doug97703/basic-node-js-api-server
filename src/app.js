@@ -6,9 +6,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 //built modules
-// const categoryRoutes = require('./routes/categories-route');
-// const productRoutes = require('./routes/products-route');
 const v1 = require('./routes/v1');
+const authRouter = require('./auth/router')
 
 // Esoteric Resources
 const errorHandler = require('./middleware/error.js');
@@ -26,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(categoryRoutes);
 // app.use(productRoutes);
 app.use(v1);
+app.use(authRouter)
 
 // Catchalls
 app.use(notFound);
