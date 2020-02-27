@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const roles = require('./roles-model');
 const SECRET = process.env.SECRET;
 
 const users = new mongoose.Schema({
@@ -12,30 +11,6 @@ const users = new mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String },
   role: { type: String, required: true, default: 'none', enum: ['reader', 'creator', 'editor', 'admin', 'none'] },
-}, { toObject: { virtuals: true }, toJSON: { virtuals: true } });
-
-users.virtual('permissions', {
-  ref: roles,
-  localField: 'role',
-  foreignField: 'role',
-  justOne: true,
-});
-
-users.pre('find', join);
-users.pre('findOne', join);
-
-function join() {
-  try {
-    this.populate('permissions', 'capabilities');
-  }
-  catch (e) { console.log('Find Error', e); }
-}
-
-users.pre('save', async function () {
-  if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 10);
-    this.populate('permissions', 'capabilities');
-  }
 });
 
 users.statics.createFromOauth = function (record) {
